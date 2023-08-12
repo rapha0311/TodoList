@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./src/css/styles.css">
+    <link rel="stylesheet" href="./src/css/reset.css">
+    <title>TodoList</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Lista de Tarefas</h1>
+        <div class="tarefa">
+            <input type="text" id="novaTarefa" placeholder="Digite uma nova tarefa">
+            <button id="btnAdicionar">Adicionar</button>
+        </div>
+        <ul id="listaTarefas"></ul>
+    </div>
+    <div id="subTarefasContainer" style="display: none;">
+        <h2 id="subTarefaTitulo">Subtarefas da Tarefa</h2>
+        <input type="text" id="subTarefasInput" placeholder="Digite uma subtarefa">
+        <ul id="subTarefasLista"></ul>
+        <button id="btnSalvarSubtarefas">Salvar Subtarefas</button>
+    </div>
+    <script src="./src/js/script.js"></script>
+</body>
+
+</html>
