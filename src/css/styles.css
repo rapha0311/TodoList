@@ -89,7 +89,7 @@ ul {
     flex-direction: column;
 }
 
-.lista-tarefas li {
+#listaTarefas {
     margin: 10px 0;
     width: 100%;
     display: block;
@@ -99,7 +99,12 @@ ul {
     position: relative;
 }
 
+#listaTarefas li {
+    list-style: none;
+    margin: 5px 0;
+}
+
 .sub-tarefas-lista li {
-    display: block;
-    margin: 5px 10px;
+    color: gray;
+    list-style: none;
 }
