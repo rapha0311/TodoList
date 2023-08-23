@@ -4,13 +4,13 @@ const listaTarefas = document.getElementById('listaTarefas');
 const subTarefasContainer = document.getElementById('subTarefasContainer');
 const subTarefasInput = document.getElementById('subTarefasInput');
 const subTarefasLista = document.getElementById('subTarefasLista');
-let tarefaSelecionada = null; // Variável para armazenar a tarefa selecionada
-let botaoSubTarefaCriado = false; // Variável para controlar se o botão já foi criado
+let tarefaSelecionada = null;
+let botaoSubTarefaCriado = false;
 
 btnAdicionar.addEventListener('click', () => {
     const tarefa = inputTarefa.value.trim();
     if (tarefa !== '') {
-        const li = document.createElement('li');
+        const li = document.createElement('a');
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
 
@@ -30,7 +30,7 @@ btnAdicionar.addEventListener('click', () => {
         });
 
         iconeExcluir.addEventListener('click', (event) => {
-            event.stopPropagation(); // Impede que o evento de clique seja propagado para o li
+            event.stopPropagation();
             listaTarefas.removeChild(li);
             if (tarefaSelecionada === li) {
                 subTarefasContainer.style.display = 'none';
@@ -41,30 +41,35 @@ btnAdicionar.addEventListener('click', () => {
         li.addEventListener('click', (event) => {
             if (event.target !== checkbox) {
                 tarefaSelecionada = li;
-                subTarefasContainer.style.display = 'block'; // Abre o contêiner ao clicar no texto da tarefa
-                subTarefasInput.value = ''; // Limpa o campo de entrada de subtarefas
-                subTarefasLista.innerHTML = ''; // Limpa a lista de subtarefas
+                subTarefasContainer.style.display = 'block';
+                subTarefasInput.value = '';
+                subTarefasLista.innerHTML = '';
 
-                const subTarefasUl = document.createElement('ul'); // Lista de subtarefas
-                subTarefasUl.className = 'sub-tarefas-lista'; // Aplicar estilo
+                const subTarefasUl = document.createElement('ul');
+                subTarefasUl.className = 'sub-tarefas-lista';
 
-                subTarefasLista.appendChild(subTarefasUl); // Anexa a nova lista de subtarefas
+                subTarefasLista.appendChild(subTarefasUl);
 
                 const botaoSubTarefa = document.createElement('button');
                 botaoSubTarefa.innerText = 'Adicionar Sub Tarefa';
-                botaoSubTarefa.className = 'btn-adicionar-sub-tarefa'; // Adicionar a classe ao botão
+                botaoSubTarefa.className = 'btn-adicionar-sub-tarefa';
 
                 botaoSubTarefa.addEventListener('click', () => {
                     const subTarefa = subTarefasInput.value.trim();
                     if (subTarefa !== '') {
                         const subLi = document.createElement('li');
-                        subLi.textContent = subTarefa;
-                        subTarefasUl.appendChild(subLi); // Anexa a nova subtarefa na lista correta
+                        const subCheckbox = document.createElement('input');
+                        subCheckbox.type = 'checkbox';
+                        subLi.appendChild(subCheckbox);
+                        subLi.appendChild(document.createTextNode(subTarefa));
+                        subTarefasUl.appendChild(subLi);
                         subTarefasInput.value = '';
+                        botaoSubTarefaCriado = true;
                     }
                 });
 
-                subTarefasContainer.appendChild(botaoSubTarefa); // Anexa o botão ao contêiner de subtarefas
+                subTarefasContainer.appendChild(botaoSubTarefa);
+
             }
         });
 
@@ -76,16 +81,16 @@ btnAdicionar.addEventListener('click', () => {
     }
 });
 
-// Função para salvar as subtarefas como subitens da tarefa selecionada
+
 function salvarSubtarefas() {
     if (tarefaSelecionada) {
         const subtarefas = subTarefasLista.getElementsByClassName('sub-tarefas-lista');
         tarefaSelecionada.appendChild(subtarefas[0].cloneNode(true));
         subTarefasContainer.style.display = 'none';
         tarefaSelecionada = null;
-        subTarefasInput.value = ''; // Limpa o campo de entrada de subtarefas
+        subTarefasInput.value = '';
 
-        // Remover botões "Adicionar Sub Tarefa" existentes
+
         const botoesSubTarefa = subTarefasContainer.getElementsByClassName('btn-adicionar-sub-tarefa');
         while (botoesSubTarefa.length > 0) {
             botoesSubTarefa[0].parentNode.removeChild(botoesSubTarefa[0]);
